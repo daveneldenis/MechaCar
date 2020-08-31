@@ -1,0 +1,54 @@
+---
+title: "MechaCarChallenge"
+author: "Davenel Denis"
+date: "8/28/2020"
+output: html_document
+---
+```{r}
+library(tidyverse)
+```
+```{r}
+car <- read.csv(file='MechaCar_mpg.csv',check.names=F,stringsAsFactors = F)
+```
+
+
+```{r}
+car
+```
+```{r}
+reg <- lm(mpg ~ vehicle_weight + spoiler_angle + ground_clearance + AWD +  vehicle_length, data = car) #generate multiple linear regression model
+summary(reg)
+
+```
+```{r}
+```
+
+
+```{r}
+spoiler <- read.csv(file='Suspension_Coil.csv',check.names=F,stringsAsFactors = F)
+```
+```{r}
+spoiler
+```
+```{r}
+sum <- spoiler%>%group_by(Manufacturing_Lot)%>%summarize(Mean=mean(PSI), Median=median(PSI),Variance=var(PSI), SD=sd(PSI))
+sum
+```
+```{r}
+sum_total <- spoiler%>%summarize(Mean=mean(PSI), Median=median(PSI),Variance=var(PSI), SD=sd(PSI))
+sum_total
+
+```
+```{r}
+t.test(subset(spoiler, Manufacturing_Lot == 'Lot1')$PSI, mu=1500)
+```
+
+
+```{r}
+t.test(subset(spoiler, Manufacturing_Lot == 'Lot2')$PSI, mu=1500)
+```
+
+```{r}
+t.test(subset(spoiler, Manufacturing_Lot == 'Lot3')$PSI, mu=1500)
+```
+
